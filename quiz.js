@@ -1,60 +1,28 @@
 var quiz = {
   data: [
-  {
-    q : "What is the standard distance between the target and archer in Olympics?",
-    o : [
-      "50 meters",
-      "70 meters",
-      "100 meters",
-      "120 meters"
-    ],
-	l : "link-1",
-    a : 1 // arrays start with 0, so answer is 70 meters
-  },
-  {
-    q : "Which is the highest number on a standard roulette wheel?",
-    o : [
-      "22",
-      "24",
-      "32",
-      "36"
-    ],
-	l : "link-2",
-    a : 3
-  },
-  {
-    q : "How much wood could a woodchuck chuck if a woodchuck would chuck wood?",
-    o : [
-      "400 pounds",
-      "550 pounds",
-      "700 pounds",
-      "750 pounds"
-    ],
-	l : "link-3",
-    a : 2
-  },
-  {
-    q : "Which is the seventh planet from the sun?",
-    o : [
-      "Uranus",
-      "Earth",
-      "Pluto",
-      "Mars"
-    ],
-	l : "link-4",
-    a : 0
-  },
-  {
-    q : "Which is the largest ocean on Earth?",
-    o : [
-      "Atlantic Ocean",
-      "Indian Ocean",
-      "Arctic Ocean",
-      "Pacific Ocean"
-    ],
-	l : "link-5",
-    a : 3
-  }
+    {
+      q : "What is the standard distance between the target and archer in Olympics?",
+      o : [
+        { text: "", image: "modelos.PNG" },
+        { text: "70 meters", image: "link-to-image-2" },
+        { text: "100 meters", image: "link-to-image-3" },
+        { text: "120 meters", image: "link-to-image-4" }
+      ],
+      l : "link-1",
+      a : 0 // arrays start with 0, so answer is 70 meters
+    },
+    {
+      q : "What is the standard distance between the target and archer in Olympics?",
+      o : [
+        { text: "50 meters", image: "link-to-image-1" },
+        { text: "", image: "modelos.PNG" },
+        { text: "100 meters", image: "link-to-image-3" },
+        { text: "120 meters", image: "link-to-image-4" }
+      ],
+      l : "link-1",
+      a : 1 // arrays start with 0, so answer is 70 meters
+    }
+
   ],
 
   // (A2) HTML ELEMENTS
@@ -62,8 +30,6 @@ var quiz = {
   hQn: null, // HTML question wrapper
   hAns: null, // HTML answers wrapper
   lAns: null, // Link
-  
-  
 
   // (A3) GAME FLAGS
   now: 0, // current question
@@ -83,8 +49,8 @@ var quiz = {
     quiz.hAns = document.createElement("div");
     quiz.hAns.id = "quizAns";
     quiz.hWrap.appendChild(quiz.hAns);
-	
-	// Links
+
+    // Links
     quiz.lAns = document.createElement("div");
     quiz.lAns.id = "quizlAns";
     quiz.hWrap.appendChild(quiz.lAns);
@@ -96,9 +62,9 @@ var quiz = {
   // (C) DRAW QUESTION
   draw: () => {
     // (C1) QUESTION
-    quiz.hQn.innerHTML = quiz.data[quiz.now].q;	
+    quiz.hQn.innerHTML = quiz.data[quiz.now].q;
 
-	quiz.lAns.innerHTML = "<a href='" + quiz.data[quiz.now].l + "' target='_blank'>Link</a>";
+    quiz.lAns.innerHTML = "<a href='" + quiz.data[quiz.now].l + "' target='_blank'>Link</a>";
 
     // (C2) OPTIONS
     quiz.hAns.innerHTML = "";
@@ -109,11 +75,16 @@ var quiz = {
       radio.id = "quizo" + i;
       quiz.hAns.appendChild(radio);
       let label = document.createElement("label");
-      label.innerHTML = quiz.data[quiz.now].o[i];
+      label.innerHTML = quiz.data[quiz.now].o[i].text;
       label.setAttribute("for", "quizo" + i);
       label.dataset.idx = i;
       label.addEventListener("click", () => quiz.select(label));
       quiz.hAns.appendChild(label);
+
+      // Adicionar imagem à opção
+      let image = document.createElement("img");
+      image.src = quiz.data[quiz.now].o[i].image;
+      label.appendChild(image);
     }
   },
 
